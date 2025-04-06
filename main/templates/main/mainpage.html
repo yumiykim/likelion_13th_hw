@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1 class="contents">🦁2주차 세션 내용 정리🦁</h1>
+
+<div class="section">
+    <h2>1. 가상환경 설정 및 Django 설치</h2>
+    <ul>
+        <li>가상환경 진입: <p><code>pipenv shell</code></p>
+        </li>
+        <li>Django 설치: <p><code>pip install django</code></p>
+        </li>
+        <li>.gitignore 설정 사이트:
+            <a href="https://www.toptal.com/developers/gitignore" target="_blank">Toptal Gitignore Generator</a>
+        </li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>2. 템플릿 연동 및 static 파일 설정</h2>
+    <ul>
+        <li>템플릿 구조: <p><code>templates/main/mainpage.html</code></p>
+        </li>
+        <li>뷰 함수에서 render로 연결:
+            <p><code>render(request, 'main/mainpage.html', context)</code></p>
+        </li>
+        <li>
+            <p><code>&#123;% load static %&#125;</code> 를 통해 이미지, CSS 파일 연결</p>
+        </li>
+        <li>예시:
+            <ul>
+                <li>이미지: <p><code>&lt;img src="&#123;% static 'images/photo.jpg' %&#125;"&gt;</code></p>
+                </li>
+                <li>CSS: <p><code>&lt;link rel="stylesheet" href="&#123;% static 'css/style.css' %&#125;"&gt;</code></p>
+                </li>
+                <li><strong>static 파일 위치 설정 (settings.py):</strong>
+                    <p><code>STATICFILES_DIRS = [os.path.join(BASE_DIR, 'project', 'static')]</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>3. 템플릿 언어 활용</h2>
+    <ul>
+        <li>context 데이터 출력: <p><code>&#123;&#123; 변수명 &#125;&#125;</code></p>
+        </li>
+        <li>반복문: <p><code>&#123;% for item in 리스트 %&#125; ... &#123;% endfor %&#125;</code></p>
+        </li>
+        <li>조건문: <p><code>&#123;% if 조건 %&#125; ... &#123;% else %&#125; ... &#123;% endif %&#125;</code></p>
+        </li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>4. 템플릿 상속 및 include 구조</h2>
+    <ul>
+        <li>공통 레이아웃 정의: <p><code>base.html</code></p>
+        </li>
+        <li>개별 페이지는 다음과 같이 작성:
+            <pre><code>&#123;% extends 'base.html' %&#125;
+&#123;% block content %&#125;
+    &lt;!-- 내용 작성 --&gt;
+&#123;% endblock %&#125;</code></pre>
+        </li>
+        <li>공통 요소(Navbar 등): <p><code>shared/_navbar.html</code></p>로 분리하여
+            <p><code>&#123;% include 'shared/_navbar.html' %&#125;</code></p>
+        </li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>6. 서버 실행 및 확인</h2>
+    <ul>
+        <li>서버 실행: <p><code>python manage.py runserver</code></p>
+        </li>
+        <li>접속 주소: <p><code>http://localhost:8000</code></p>
+        </li>
+    </ul>
+</div>
+
+
+
+{% endblock %}
