@@ -7,7 +7,7 @@ def mainpage(request):
 
 def secondpage(request):
     context = {
-        'info' : {'name': 'Yumi Kim', 'major': 'Industirial Systems Engineering & Data Science Software', 'track' : 'BE'}
+        'info' : {'name': 'Yumi Kim', 'major': 'Industrial Systems Engineering & Data Science Software', 'track' : 'BE'}
     }
     return render(request, 'main/secondpage.html', context)
     
