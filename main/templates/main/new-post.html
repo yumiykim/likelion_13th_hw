@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>새로운 하루를 기록해보세요 🌿</h2>
+
+<form action="{% url 'main:create' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>제목 (Headline): <input type="text" name="headline" required></p>
+    <p>닉네임 (Nickname): <input type="text" name="nickname" required></p>
+    <p>오늘의 감정 (Mood): <input type="text" name="mood" placeholder="예: 행복, 피곤함, 설렘 등"></p>
+    <p>사진 (Photo): <input type="file" name="photo" accept="image/*"></p>
+    <p>내용 (Reflection):<br>
+        <textarea name="reflection" cols="40" rows="10" required></textarea>
+    </p>
+    <p>
+        공개 여부 (Share this post?) 
+        <input type="checkbox" name="is_shared" checked> 공개함
+    </p>
+
+    <button type="submit">기록 저장하기</button>
+</form>
+{% endblock %}

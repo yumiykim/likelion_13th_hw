@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
+<h1>📘나의 일기장 </h1>
 
-    <h1 class="contents">🦁두 번째 페이지입니다🦁</h1>
+{% for post in posts %}
+    {% if post.is_shared %}
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        <h3>{{ post.headline }}</h3>
+        <p><strong>닉네임:</strong> {{ post.nickname }} | <strong>감정:</strong> {{ post.mood }}</p>
+        <p><strong>작성 시간:</strong> {{ post.created_at|date:"Y-m-d H:i" }}</p>
+        
+        {% if post.photo %}
+            <p><img src="{{ post.photo.url }}" alt="이미지" width="150px"></p>
+        {% endif %}
 
-    <div>
-        <ul>
-            <li>Name: {{ info.name }}</li>
-            <li>Major: {{ info.major }}</li>
-            <li>Track: {{ info.track }}</li>
-        </ul>
+        <p>{{ post.summary }}...</p>
+        <a href="{% url 'main:detail' post.id %}">자세히 보기</a>
     </div>
-
-    <div class="section">
-        <h2>I love playing tennis!🎾</h2>
-        <img src="{% static 'images/photo.jpg' %}" alt="photo" width="400px">
-        <img src="{% static 'images/forehand.jpg' %}" alt="forehand" width="400px">
-    </div>
+    {% endif %}
+{% empty %}
+    <p>작성된 포스트가 아직 없어요 🥲</p>
+{% endfor %}
 
 {% endblock %}

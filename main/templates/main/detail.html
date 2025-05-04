@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ post.headline }}</h2>
+
+<p><strong>닉네임:</strong> {{ post.nickname }}</p>
+<p><strong>감정 상태:</strong> {{ post.mood }}</p>
+<p><strong>작성 시간:</strong> {{ post.created_at|date:"Y년 m월 d일 H:i" }}</p>
+
+{% if post.photo %}
+    <p><img src="{{ post.photo.url }}" alt="첨부 이미지" width="300px"></p>
+{% endif %}
+
+<hr>
+
+<p style="white-space: pre-wrap;">{{ post.reflection }}</p>
+
+<a href="{% url 'main:secondpage' %}">← 목록으로 돌아가기</a>
+<a href="{% url 'main:edit' post.id %}">| 글 수정하기</a>
+<a href="{% url 'main:delete' post.id %}" onclick="return confirm('정말 삭제할까요?');">| 🗑 삭제하기</a>
+{% endblock %}
