@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>마이페이지에 오신 것을 환영합니다</h1>
+
+<h3>{{ user.username }}님 안녕하세요</h3>
+<p>생일: {{ user.profile.birthday }}</p>
+<p>전화번호: {{ user.profile.phone }}</p>
+
+<h3>작성한 글 목록</h3>
+<ul>
+    {% for post in posts %}
+    <li>
+        <a href="{% url 'main:detail' post.pk %}">{{ post.headline }}</a>
+    </li>
+    {% empty %}
+    <li>작성한 글이 없습니다.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

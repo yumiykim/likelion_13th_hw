@@ -20,6 +20,7 @@ def detail(request, id):
 def create(request):
     if request.method == 'POST':
         new_post = Post()
+        new_post.author = request.user
         new_post.headline = request.POST['headline']
         new_post.nickname = request.POST['nickname']
         new_post.mood = request.POST.get('mood', '')
@@ -62,3 +63,7 @@ def delete(request, id):
     post = get_object_or_404(Post, pk=id)
     post.delete()
     return redirect('main:secondpage')
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'posts/detail.html', {'post': post})
