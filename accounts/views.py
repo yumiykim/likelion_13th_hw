@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from .models import Profile
+from datetime import datetime  # 생일 문자열 처리용
+
 
 # Create your views here.
 def login(request):
@@ -34,8 +36,14 @@ def signup(request):
                 username=request.POST['username'],
                 password=request.POST['password']
             )
-            birthday=request.POST['birthday'],
-            phone=request.POST['phone']
+            
+            # 생일: 문자열 → date 객체로 변환
+            birthday_str = request.POST.get('birthday')
+            birthday = None
+            if birthday_str:
+                birthday = datetime.strptime(birthday_str, "%Y-%m-%d").date()
+            
+            phone=request.POST.get('phone')
 
             profile = Profile(user=user, birthday=birthday, phone=phone)
             profile.save()
