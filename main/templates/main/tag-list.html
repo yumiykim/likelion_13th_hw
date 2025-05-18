@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>📌 태그 목록</h2>
+
+<ul>
+    {% for tag in tags %}
+        <li>
+            <a href="{% url 'main:tag-posts' tag.id %}">#{{ tag.name }}</a> 
+            ({{ tag.posts.count }}개 글)
+        </li>
+    {% empty %}
+        <li>아직 생성된 태그가 없습니다.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'main:secondpage' %}">← 글 목록으로 돌아가기</a>
+
+{% endblock %}

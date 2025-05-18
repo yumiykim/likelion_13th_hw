@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>#{{ tag.name }} 태그가 달린 글</h2>
+
+{% for post in posts %}
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        <h3>{{ post.headline }}</h3>
+        <p><strong>작성자:</strong> {{ post.author.username }} | <strong>감정:</strong> {{ post.mood }}</p>
+        <p><strong>작성 시간:</strong> {{ post.created_at|date:"Y-m-d H:i" }}</p>
+        
+        {% if post.photo %}
+            <p><img src="{{ post.photo.url }}" alt="이미지" width="150px"></p>
+        {% endif %}
+
+        <p>{{ post.summary }}...</p>
+        <a href="{% url 'main:detail' post.id %}">자세히 보기</a>
+    </div>
+{% empty %}
+    <p>이 태그가 달린 게시글이 없습니다.</p>
+{% endfor %}
+
+<a href="{% url 'main:tag-list' %}">← 태그 목록으로 돌아가기</a>
+
+{% endblock %}
