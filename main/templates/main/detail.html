@@ -4,10 +4,16 @@
 {% block content %}
 <h2>{{ post.headline }}</h2>
 
-<p><strong>작성자:</strong> {{ post.author.username }}</p>
+
+
+<a href="{% url 'users:mypage' post.author.id %}"><strong>작성자:</strong> {{ post.author.username }}</a>
 <p><strong>감정 상태:</strong> {{ post.mood }}</p>
 <p><strong>작성 시간:</strong> {{ post.created_at|date:"Y년 m월 d일 H:i" }}</p>
 
+<a href="{% url 'main:likes' post.id %}">
+    {% if user in post.like.all %} 취소 {% else %} 좋아요 {% endif %}
+</a>
+{{post.like_count}}개
 
 {% if post.tags.exists %}
 <p><strong>해시태그:</strong>

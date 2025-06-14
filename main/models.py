@@ -20,7 +20,9 @@ class Post(models.Model):
     reflection = models.TextField()                           
     created_at = models.DateTimeField(auto_now_add=True)       
     is_shared = models.BooleanField(default=True)
-    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')             
+    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
+    like=models.ManyToManyField(User, related_name='likes', blank=True)
+    like_count=models.PositiveIntegerField(default=0)          
 
     def __str__(self):
         return f"[{self.headline}] by {self.author.username}"

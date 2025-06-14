@@ -30,25 +30,23 @@ def logout(request):
 
 def signup(request):
     if request.method == 'POST':
-
         if request.POST['password'] == request.POST['confirm']:
             user = User.objects.create_user(
                 username=request.POST['username'],
                 password=request.POST['password']
             )
-            
-            # 생일: 문자열 → date 객체로 변환
-            birthday_str = request.POST.get('birthday')
-            birthday = None
-            if birthday_str:
-                birthday = datetime.strptime(birthday_str, "%Y-%m-%d").date()
-            
-            phone=request.POST.get('phone')
 
-            profile = Profile(user=user, birthday=birthday, phone=phone)
+            # 중복 생성 방지: 있으면 가져오고, 없으면 새로 생성
+            profile, created = Profile.objects.get_or_create(user=user)
+
+            birthday_str = request.POST.get('birthday')
+            if birthday_str:
+                profile.birthday = datetime.strptime(birthday_str, "%Y-%m-%d").date()
+
+            profile.phone = request.POST.get('phone')
             profile.save()
 
             auth.login(request, user)
             return redirect('/')
-        
+
     return render(request, 'accounts/signup.html')
